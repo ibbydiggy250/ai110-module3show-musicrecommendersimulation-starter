@@ -36,6 +36,10 @@ You can include a simple diagram or bullet list if helpful.
  My finalized Algorithm recipe will be ranking based on genre, mood, energy, and valence. Since we need to score songs based on metrics, we will weigh each of these things seperately. Genre will be 4 points, mood will be 3 points, energy will be 2 points, and valence will be 1 point, for a total of 10. Most people resonate with genre the most, so it seems to be the best attribute to prioritize. However, while it is an important attribute, a genre still has a wide variety of songs and moods, and something in the genre may be less impactful than something outside the genre but with a similar mood. This bias will exist, but for general purposes, genre seems to be the best priority.
 ---
 
+## Screenshot of Output:
+![alt text](image.png)
+---
+
 ## Getting Started
 
 ### Setup

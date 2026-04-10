@@ -56,6 +56,7 @@ def load_songs(csv_path: str) -> List[Dict]:
         reader = csv.DictReader(f)
         for row in reader:
             songs.append({
+                "title":   row["title"],
                 "genre":   row["genre"],
                 "mood":    row["mood"],
                 "energy":  float(row["energy"]),
@@ -94,6 +95,13 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
     Functional implementation of the recommendation logic.
     Required by src/main.py
     """
-    # TODO: Implement scoring and ranking logic
-    # Expected return format: (song_dict, score, explanation)
-    return []
+    # Score every song against the user's preferences
+    scored = []
+    for song in songs:
+        score, reasons = score_song(user_prefs, song)
+        explanation = ", ".join(reasons)
+        scored.append((song, score, explanation))
+
+    # Sort by score highest to lowest, then return the top k
+    ranked = sorted(scored, key=lambda x: x[1], reverse=True)
+    return ranked[:k]
