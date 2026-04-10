@@ -63,6 +63,32 @@ def load_songs(csv_path: str) -> List[Dict]:
             })
     return songs
 
+def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
+    """
+    Scores a single song against user preferences.
+    Required by recommend_songs() and src/main.py
+    """
+    score = 0.0
+    reasons = []
+
+    if song["genre"] == user_prefs.get("genre"):
+        score += 4.0
+        reasons.append("genre match (+4.0)")
+
+    if song["mood"] == user_prefs.get("mood"):
+        score += 3.0
+        reasons.append("mood match (+3.0)")
+
+    energy_pts = 2 * (1 - abs(user_prefs.get("energy", 0.0) - song["energy"]))
+    score += energy_pts
+    reasons.append(f"energy match (+{energy_pts:.1f})")
+
+    valence_pts = 1 * (1 - abs(user_prefs.get("valence", 0.0) - song["valence"]))
+    score += valence_pts
+    reasons.append(f"valence match (+{valence_pts:.1f})")
+
+    return score, reasons
+
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
     """
     Functional implementation of the recommendation logic.
