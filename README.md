@@ -29,6 +29,11 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+ Real recommendation systems aren't just a black and white sorting algorithm. Instead, it takes a lot of considerations, such as user preferences, popularity, genre, etc. It employs both a scoring and ranking system to not only get the matching number for the song, but also rank it based on factors such as alphabetically, relevance, popularity, etc. This is mostly content based filtering, where a user is given a recommendation based on the actual content, rather than widespread popularity. My version will prioritize energy, genre, mood and valence, as these are emotional states and preferences that is personal to the user.
+
+ From Song and UserProfile we can implement the energy, valence, genre and mood features from the Song object, and the target_energy, favorite_genre and favorite_mood features from the UserProfile class. We will ignore the likes_acoustic, as a boolean is weak when it comes to preference.
+
+ My finalized Algorithm recipe will be ranking based on genre, mood, energy, and valence. Since we need to score songs based on metrics, we will weigh each of these things seperately. Genre will be 4 points, mood will be 3 points, energy will be 2 points, and valence will be 1 point, for a total of 10. Most people resonate with genre the most, so it seems to be the best attribute to prioritize. However, while it is an important attribute, a genre still has a wide variety of songs and moods, and something in the genre may be less impactful than something outside the genre but with a similar mood. This bias will exist, but for general purposes, genre seems to be the best priority.
 ---
 
 ## Getting Started

@@ -1,0 +1,64 @@
+Plan: Implement 10-Point Scoring in Music Recommender
+Context
+Point-weighting scheme for song recommendations:
+
+genre: 4 pts (exact categorical match)
+mood: 3 pts (exact categorical match)
+energy: 2 pts (continuous, proximity-based)
+valence: 1 pt (continuous, proximity-based)
+Max score = 10. Wired into both OOP (Recommender) and functional (recommend_songs) paths. UserProfile.likes_acoustic → target_valence.
+
+Files to Modify
+File	Change
+src/recommender.py	Replace likes_acoustic with target_valence, implement all TODOs
+tests/test_recommender.py	likes_acoustic=False → target_valence=0.9
+src/main.py	Add "valence": 0.8 to user_prefs
+Data Flow
+
+flowchart TD
+    A([User]) --> B[Enter Preferences\ngenre · mood · energy · valence]
+    B --> C{UserProfile}
+
+    D[(songs.csv)] --> E[load_songs\nparse CSV rows → dicts]
+    E --> F[Song Catalog\nList of Song objects]
+
+    C --> G[recommend_songs]
+    F --> G
+
+    G --> H[Score each song]
+
+    H --> H1[genre match?\n+4 or +0]
+    H --> H2[mood match?\n+3 or +0]
+    H --> H3[energy proximity\n2 × 1 - ∣Δenergy∣]
+    H --> H4[valence proximity\n1 × 1 - ∣Δvalence∣]
+
+    H1 --> I[Total Score\nmax 10]
+    H2 --> I
+    H3 --> I
+    H4 --> I
+
+    I --> J[Sort by Score\ndescending]
+    J --> K[Top-k Songs]
+
+    K --> L[explain_recommendation\nper song]
+    L --> M([Output\nRanked songs + scores + explanations])
+Scoring Formula
+
+score = 0
+if song.genre == user.favorite_genre:  score += 4
+if song.mood  == user.favorite_mood:   score += 3
+score += 2 * (1 - abs(user.target_energy  - song.energy))   # 0–2
+score += 1 * (1 - abs(user.target_valence - song.valence))  # 0–1
+# max = 10
+Implementation Steps
+UserProfile — replace likes_acoustic: bool with target_valence: float
+Recommender.recommend — score each song, sort descending, return top-k
+Recommender.explain_recommendation — human-readable breakdown per attribute
+load_songs — csv.DictReader, cast numerics, return List[Dict]
+recommend_songs — same formula using dict keys, return List[Tuple[Dict, float, str]]
+Tests — swap likes_acoustic=False → target_valence=0.9
+main.py — add "valence": 0.8 to starter profile
+Verification
+pytest tests/test_recommender.py — both tests pass
+python src/main.py — prints 5 ranked songs with scores + explanations
+Manual check: "Sunrise City" (pop/happy/0.82/0.84) should score ~9.94/10 against a pop/happy/0.8/0.8 profile
