@@ -83,6 +83,12 @@ Use this section to document the experiments you ran. For example:
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
 
+User preference "genre": "pop", "mood": "sad", "energy": 0.8, "valence": 0.2:
+![alt text](image-1.png)
+User preference "genre": "lofi", "mood": "chill", "energy": 0.3, "valence": 0.6:
+![alt text](image-2.png)
+User preference "genre": "metal", "mood": "angry", "energy": 0.95, "valence": 0.2:
+![alt text](image-3.png)
 ---
 
 ## Limitations and Risks
