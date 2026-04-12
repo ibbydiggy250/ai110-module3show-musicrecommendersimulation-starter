@@ -17,7 +17,7 @@ def main() -> None:
     print(f"Loaded songs: {len(songs)}")
 
     # Starter example profile
-    user_prefs = {"genre": "pop", "mood": "angry", "energy": 0.2, "valence": 0.5}
+    user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.9, "valence": 0.5}
     user2_prefs = {"genre": "lofi", "mood": "chill", "energy": 0.3, "valence": 0.6}
     user3_prefs = {"genre": "metal", "mood": "angry", "energy": 0.95, "valence": 0.2}
 

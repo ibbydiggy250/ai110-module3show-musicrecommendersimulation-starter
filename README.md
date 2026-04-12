@@ -89,6 +89,16 @@ User preference "genre": "lofi", "mood": "chill", "energy": 0.3, "valence": 0.6:
 ![alt text](image-2.png)
 User preference "genre": "metal", "mood": "angry", "energy": 0.95, "valence": 0.2:
 ![alt text](image-3.png)
+
+
+I then experimented to see the effect of weighting.
+With normal weights: Profile: genre=pop, mood=angry, energy=0.2, valence=0.5
+![alt text](image-4.png)
+
+With a doubling of energy and halving of genre:
+![alt text](image-5.png)
+
+The second option wa sa lot worse, as Iron Descent was the only "angry" music, and a person with an angry profile getting Moonlit Sonata which is sad is completely off.
 ---
 
 ## Limitations and Risks
